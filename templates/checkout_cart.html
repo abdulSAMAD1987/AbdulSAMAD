@@ -1,0 +1,212 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+    <!-- BEGIN #checkout-cart -->
+    <div class="section-container" id="checkout-cart">
+        <!-- BEGIN container -->
+        <div class="container">
+            <!-- BEGIN checkout -->
+            <div class="checkout">
+                <form action="" method="POST" name="form_checkout">
+                    <!-- BEGIN checkout-header -->
+                    <div class="checkout-header">
+                        <!-- BEGIN row -->
+                        <div class="row">
+                            <!-- BEGIN col-3 -->
+                            <div class="col-md-3 col-sm-3">
+                                <div class="step active">
+                                    <a href="{% url 'checkout_cart' %}">
+                                        <div class="number">1</div>
+                                        <div class="info">
+                                            <div class="title">Delivery Options</div>
+                                            <div class="desc">paisy deo gay</div>
+                                        </div>
+                                </div>
+                            </div>
+                            <!-- END col-3 -->
+                            <!-- BEGIN col-3 -->
+                            <div class="col-md-3 col-sm-3">
+                                <div class="step">
+                                    <a href="{% url 'shipping' %}">
+                                        <div class="number">2</div>
+                                        <div class="info">
+                                            <div class="title">Shipping Address</div>
+                                            <div class="desc">Address Daso</div>
+                                        </div>
+                                </div>
+                            </div>
+                            <!-- END col-3 -->
+                            <!-- BEGIN col-3 -->
+                            <div class="col-md-3 col-sm-3">
+                                <div class="step">
+                                    <a href="{% url 'card' %}">
+                                        <div class="number">3</div>
+                                        <div class="info">
+                                            <div class="title">Payment</div>
+                                            <div class="desc">paisy kewain dawo gay </div>
+                                        </div>
+                                    </a>
+                                </div>
+                            </div>
+                            <!-- END col-3 -->
+                            <!-- BEGIN col-3 -->
+                            <div class="col-md-3 col-sm-3">
+                                <div class="step">
+                                    <a href="checkout_complete.html">
+                                        <div class="number">4</div>
+                                        <div class="info">
+                                            <div class="title">Complete Payment</div>
+                                            <div class="desc">HOR koi sady like.</div>
+                                        </div>
+                                    </a>
+                                </div>
+                            </div>
+                            <!-- END col-3 -->
+                        </div>
+                        <!-- END row -->
+                    </div>
+                    <!-- END checkout-header -->
+                    <!-- BEGIN checkout-body -->
+                    <div class="checkout-body">
+                        <div class="table-responsive">
+                            <table class="table table-cart">
+                                <thead>
+                                <tr>
+                                    <th>Product Name</th>
+                                    <th class="text-center">Price</th>
+                                    <th class="text-center">Quantity</th>
+                                    <th class="text-center">Total</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                {% if product_show %}
+                                    {% for n in product_show %}
+                                        <tr>
+                                            <td class="cart-product">
+                                                <div class="product-img">
+                                                    <img src="{{ n.product.picture.url }}" alt="" />
+                                                </div>
+                                                <div class="product-info">
+                                                    <div class="title">{{ n.product.name }}</div>
+                                                    <div class="desc">{{ n.created_at }}</div>
+                                                </div>
+                                            </td>
+                                            <td class="cart-price text-center">{{ n.product.price }}</td>
+
+                                    <td style="display: flex;justify-content: space-evenly;">
+                                        <form action="/checkout_cart/" method="POST">
+                                            {% csrf_token %}
+                                            <input type="hidden" name="prod_id"  value={{ n.product_id }} id="prod_id" >
+                                            <input type="hidden" name="operation"  value='decrease' id="operation" >
+
+                                            <button class="btn btn-outline-dark" type="submit">-</button>
+
+
+                                        </form>
+                                        {{ n.quantity }}
+                                        <form action="/checkout_cart/" method="POST">
+                                            {% csrf_token %}
+                                            <input type="hidden" name="prod_id"  value={{ n.product_id }} id="prod_id" >
+                                            <input type="hidden" name="operation1"  value='increase' id="operation1" >
+
+                                            <button class="btn btn-outline-dark" type="submit">+</button>
+                                        </form>
+
+                                    </td>
+
+
+
+                                            <td class="cart-total text-center">
+                                                {{ n.pro_total }}
+                                            </td>
+                                        </tr>
+                                    {% endfor %}
+                                {% endif %}
+                                <tr>
+                                    <td class="cart-summary" colspan="4">
+                                        <div class="summary-container">
+                                            <div class="summary-row">
+                                                <div class="field">Cart Subtotal</div>
+                                                <div class="value">{{ sub_total }}</div>
+                                            </div>
+                                            <div class="summary-row text-danger">
+                                                <div class="field">Shipping Charges</div>
+                                                <div class="value">{{ shipping }}</div>
+                                            </div>
+                                            <div class="summary-row total">
+                                                <div class="field">Total</div>
+                                                <div class="value">{{ total }}</div>
+                                            </div>
+                                        </div>
+                                    </td>
+                                </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                    <!-- END checkout-body -->
+                    <!-- BEGIN checkout-footer -->
+                    <div class="checkout-footer">
+                        <a href="/" class="btn btn-white btn-lg pull-left">Continue Shopping</a>
+                         <a href="{% url 'shipping' %}" type="submit" class="btn btn-inverse btn-lg p-l-30 p-r-30 m-l-10">Checkout </a>
+                    </div>
+                    <!-- END checkout-footer -->
+                </form>
+            </div>
+            <!-- END checkout -->
+        </div>
+        <!-- END container -->
+    </div>
+    <!-- END #checkout-cart -->
+
+    <!-- BEGIN #policy -->
+    <div id="policy" class="section-container p-t-30 p-b-30 bg-white">
+        <!-- BEGIN container -->
+        <div class="container">
+            <!-- BEGIN row -->
+            <div class="row">
+                <!-- BEGIN col-4 -->
+                <div class="col-md-4 col-sm-4">
+                    <!-- BEGIN policy -->
+                    <div class="policy">
+                        <div class="policy-icon"><i class="fa fa-truck"></i></div>
+                        <div class="policy-info">
+                            <h4>Free Delivery Over $100</h4>
+                            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+                        </div>
+                    </div>
+                    <!-- END policy -->
+                </div>
+                <!-- END col-4 -->
+                <!-- BEGIN col-4 -->
+                <div class="col-md-4 col-sm-4">
+                    <!-- BEGIN policy -->
+                    <div class="policy">
+                        <div class="policy-icon"><i class="fa fa-shield"></i></div>
+                        <div class="policy-info">
+                            <h4>1 Year Warranty For Phones</h4>
+                            <p>Cras laoreet urna id dui malesuada gravida. <br />Duis a lobortis dui.</p>
+                        </div>
+                    </div>
+                    <!-- END policy -->
+                </div>
+                <!-- END col-4 -->
+                <!-- BEGIN col-4 -->
+                <div class="col-md-4 col-sm-4">
+                    <!-- BEGIN policy -->
+                    <div class="policy">
+                        <div class="policy-icon"><i class="fa fa-user-md"></i></div>
+                        <div class="policy-info">
+                            <h4>6 Month Warranty For Accessories</h4>
+                            <p>Fusce ut euismod orci. Morbi auctor, sapien non eleifend iaculis.</p>
+                        </div>
+                    </div>
+                    <!-- END policy -->
+                </div>
+                <!-- END col-4 -->
+            </div>
+            <!-- END row -->
+        </div>
+        <!-- END container -->
+    </div>
+{% endblock %}
