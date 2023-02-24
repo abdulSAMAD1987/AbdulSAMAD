@@ -143,9 +143,9 @@ class Checkoutcart(LoginRequiredMixin, ListView):              #checkoutCart
                 cart.save()
                 if cart.quantity == 0:
                     cart.delete()
-            # elif operation1 == 'increase':
-            #     cart.quantity += 1
-            #     cart.save()
+            elif operation1 == 'increase':
+                cart.quantity += 1
+                cart.save()
             else: # why the else is here  ( this was mistakenly the case)
                 cart.quantity += 1
                 cart.save()
@@ -174,7 +174,7 @@ class Checkoutcart(LoginRequiredMixin, ListView):              #checkoutCart
 
 
 
-class Shipping(LoginRequiredMixin, CreateView):      # Shipping Methods
+class Shipping(LoginRequiredMixin, CreateView):      
     model = ShippingAddress
     form_class = Shipping_Form
     template_name = 'checkout_info.html'
