@@ -16,7 +16,7 @@ from django.db.models import Q
 from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
 from django.contrib.auth.views import LogoutView
 
-stripe.api_key = 'sk_test_51MZGscLfd72EriHGrZMVPgdAmsxHGOwLUBi8ksFafRlF5RqXEEQV7mhFkU1M5fOPydYQaV3MDk3JbvNpbKEHeilP00iH2XGTOl'
+# stripe.api_key = 'put your stripe id here'
 
 
 
